@@ -18,11 +18,14 @@ import AppWrapper from './components/App';
 //   };
 // };
 
-const logger = ({ dispatch, getState }) => (next) => (action) => {
-  // my middlware
-  //console.log('ACTION', action);
-  next(action);
-};
+const logger =
+  ({ dispatch, getState }) =>
+  (next) =>
+  (action) => {
+    // my middlware
+    //console.log('ACTION', action);
+    next(action);
+  };
 
 // const thunk = store => next => action => {
 //   if (typeof action === 'function') {
@@ -38,7 +41,7 @@ const store = createStore(rootReducer, applyMiddleware(logger, thunk));
 
 export const StoreContext = createContext();
 
-//console.log('StoreContext', StoreContext); //StoreContext ia an object with many properties on it 
+//console.log('StoreContext', StoreContext); //StoreContext ia an object with many properties on it
 //two important one are producer and consumer
 
 class Provider extends React.Component {
@@ -64,13 +67,15 @@ export function connect(callback) {
     class ConnectedComponent extends React.Component {
       constructor(props) {
         super(props);
-        this.unsubscribe = this.props.store.subscribe(() => { this.forceUpdate() });
+        this.unsubscribe = this.props.store.subscribe(() => {
+          this.forceUpdate();
+        });
       }
-      componentWillUnmount(){
+      componentWillUnmount() {
         this.unsubscribe();
       }
       render() {
-        const {store} = this.props;
+        const { store } = this.props;
         const state = store.getState();
         const dataToBePassedAsProps = callback(state);
         return (
@@ -82,7 +87,7 @@ export function connect(callback) {
       render() {
         return (
           <StoreContext.Consumer>
-            {store =>  <ConnectedComponent store={store} /> }
+            {(store) => <ConnectedComponent store={store} />}
           </StoreContext.Consumer>
         );
       }
@@ -94,7 +99,8 @@ export function connect(callback) {
 
 ReactDOM.render(
   <Provider store={store}>
-    <AppWrapper /> {/*whatever components written(or passed)  between Provider tag are children of Provider and can be accessed as this.props.children*/}
+    <AppWrapper />{' '}
+    {/*whatever components written(or passed)  between Provider tag are children of Provider and can be accessed as this.props.children*/}
   </Provider>,
   document.getElementById('root')
 );
