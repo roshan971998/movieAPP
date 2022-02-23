@@ -1,7 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-so inorder to run the project:
-1- npm i
+Inorder to run the project:
+1- npm i,
 2-npm start 
 
 ## Available Scripts
